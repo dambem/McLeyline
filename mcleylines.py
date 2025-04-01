@@ -85,26 +85,7 @@ def find_linear_mcdonalds(mcdonalds_gdf, min_points=50, d_threshold=0.1):
                 min_x, max_x = X[inlier_indices].min(), X[inlier_indices].max()
 
                 inlier_points_transformed = X[inlier_indices]
-                inlier_y_predicted = ransac.predict(inlier_points_transformed.reshape(-1, 1))
-
-                # Create the inverse transformation matrix
-                inverse_rotation = np.array([
-                    [cos_theta, sin_theta],
-                    [-sin_theta, cos_theta]
-                ])
-
-                # Apply inverse rotation to the inlier points to get them back in original space
-                inlier_points_with_y = np.column_stack((inlier_points_transformed, inlier_y_predicted))
-                original_inlier_points = np.dot(inlier_points_with_y, inverse_rotation)
-
-                # Now do the same for the line points if you need to visualize the line
-                x_values = np.linspace(min_x, max_x, 10)
-                y_values = ransac.predict(x_values.reshape(-1, 1))
-                line_points_transformed = np.column_stack((x_values, y_values))
-                line_points_original = np.dot(line_points_transformed, inverse_rotation)
-
-                # 3. Create the LineString from these points
-                line = LineString(line_points_original)
+                line = LineString(line_points_transformed)
                                 
 
                 lines_in_direction.append({
