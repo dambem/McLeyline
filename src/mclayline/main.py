@@ -4,9 +4,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 from shapely.geometry import Point, LineString
 from sklearn.linear_model import RANSACRegressor
-# from scipy.stats import chi2_contingency, fisher_exact
-# from itertools import combinations
-# from geopandas.tools import sjoin
+
+def hello_world() -> str:
+    """
+    Returns a statement verifying package exists.
+
+    Returns (str) -> 
+    """
 
 def get_mcdonalds_locations():
     population_centers = [
@@ -96,6 +100,7 @@ def find_linear_mcdonalds(mcdonalds_gdf, min_points=50, d_threshold=0.1):
 
 
     return best_lines
+
 def visualise():
     url = "https://naciscdn.org/naturalearth/110m/cultural/ne_110m_admin_0_countries.zip"
     mcdonalds_df = get_mcdonalds_locations()
@@ -131,5 +136,3 @@ def visualise():
     plt.tight_layout()
     plt.savefig('mcdonalds_laylines_2.png', dpi=500)
     
-if __name__ == "__main__":
-    visualise()
